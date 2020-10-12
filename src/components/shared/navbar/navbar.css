@@ -1,0 +1,9 @@
+.navbar {
+    box-sizing: border-box;
+    height: 50px;
+    background-color: rgb(16, 87, 71);
+    display: grid;
+    justify-items: right;
+    align-items: center;
+    padding-right: 30px;
+}
