@@ -1,0 +1,4 @@
+.home {
+    grid-area: "content";
+    padding: 10px;
+}

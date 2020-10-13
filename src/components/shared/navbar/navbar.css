@@ -1,9 +1,54 @@
 .navbar {
+    grid-area: "navbar";
     box-sizing: border-box;
-    height: 50px;
+    height: 100vh;
+    width: 50px;
     background-color: rgb(16, 87, 71);
+    padding-top: 10px;
+    text-align: center;
+}
+
+.butt {
+    color: rgb(13, 168, 132);
+    background-color: rgb(16, 87, 71);
+    margin-bottom: 5px;
+    border: none;
+}
+
+.butt:active {
+    background-color: rgb(9, 51, 41);
+}
+
+.trigger {
+    position: relative;
+}
+
+.modal {
+    position: absolute;
+    top: 0px;
+    left: 45px;
+    width: 50px;
+    height: 40px;
+    background-color: rgb(16, 87, 71);
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.3s linear, opacity 0.3s linear;
     display: grid;
-    justify-items: right;
+    justify-content: center;
     align-items: center;
-    padding-right: 30px;
+}
+
+.link {
+    cursor: pointer;
+}
+
+.unhide {
+    opacity: 1;
+    visibility: visible;
+}
+
+.logo {
+    color: rgb(13, 168, 132);
+    background-color: rgb(16, 87, 71);
+    margin-bottom: 5px;
 }
