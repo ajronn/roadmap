@@ -6,6 +6,7 @@ interface CssExports {
   'logo': string;
   'modal': string;
   'navbar': string;
+  'photo': string;
   'trigger': string;
   'unhide': string;
 }

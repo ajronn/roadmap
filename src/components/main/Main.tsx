@@ -13,11 +13,13 @@ const Main = () => {
         <UserProvider>
             <div className={styles.main}>
                 <Navbar />
-                <Router>
-                    <Switch>
-                        <Route path="/" exact><Home /></Route>
-                    </Switch>
-                </Router>
+                <div className={styles.content}>
+                    <Router>
+                        <Switch>
+                            <Route path="/" exact><Home /></Route>
+                        </Switch>
+                    </Router>
+                </div>
             </div>
         </UserProvider>
     )

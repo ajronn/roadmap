@@ -18,7 +18,7 @@ const Navbar = () => {
         <div className={styles.navbar}>
             <MapIcon fontSize="large" className={styles.logo} />
             {ctx.isLogged
-                ? <Button className={styles.butt} onClick={() => ctx.logout()}><MeetingRoomIcon /></Button>
+                ? <Button className={styles.butt} onClick={() => ctx.logout()}><MeetingRoomIcon />Exit</Button>
                 :
                 <Button className={`${styles.butt} ${styles.trigger}`} onClick={modalHandler} ><VpnKeyIcon />
                     <div className={`${styles.modal} ${open && styles.unhide}`}>
@@ -29,6 +29,7 @@ const Navbar = () => {
                     </div>
                 </Button>
             }
+            <img className={styles.photo} src={ctx.photoURL} width={34} />
         </div>
     )
 }
