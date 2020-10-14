@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 
-import styles from "./week.css"
+import { Calendar } from "../../../shared/calendar"
+
+import styles from "./week.css";
 
 export interface Day {
     dayInMonth: number,
@@ -10,20 +12,12 @@ export interface Day {
 }
 
 const Week = () => {
-    const [currentDay, setCurrentDay] = useState(null);
+    const [currentDay, setCurrentDay] = useState(new Date());
     const [currentWeek, setCurrentWeek] = useState([]);
     const DAYS_OF_THE_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     useEffect(() => {
-        const date = new Date();
-        const obj: Day = {
-            dayInMonth: date.getDate(),
-            month: date.getMonth(),
-            year: date.getFullYear(),
-            dayOfWeek: DAYS_OF_THE_WEEK[date.getDay()]
-        }
-        setCurrentDay(obj)
-        const sunday: Date = findSunday(date);
+        const sunday: Date = findSunday(currentDay);
         const arr = [];
         for (let i = 0; i < 7; i++) {
             const d = findDay(sunday, i);
@@ -36,7 +30,11 @@ const Week = () => {
         }
         setCurrentWeek(arr);
 
-    }, [])
+    }, [currentDay])
+
+    const setDate = (d: Date) => {
+        setCurrentDay(new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+    }
 
     const findDay = (date: Date, n: number) => {
         const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -86,10 +84,13 @@ const Week = () => {
 
     return (
         <div className={styles.grid}>
-            <span>h</span>
-            {currentWeek.map(e => {
-                return <span>{e.dayInMonth}.{e.month}.{e.year}</span>
-            })}
+            <Calendar onChange={(e) => setDate(e.target.value)} />
+            <div className={styles.table}>
+                <span>h</span>
+                {currentWeek.map((e, index) => {
+                    return <span key={index}>{e.dayInMonth}.{e.month}.{e.year}</span>
+                })}
+            </div>
         </div>
     )
 }

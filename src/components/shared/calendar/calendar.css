@@ -1,0 +1,41 @@
+.calendar {
+    border: 1px solid black;
+    width: 237px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+
+table {
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+.header td {
+    height: 15px;
+    cursor: default;
+    font-weight: 600;
+}
+
+.header td:hover {
+    background: none;
+}
+
+.arrow {
+    text-align: center;
+}
+
+.arrow:hover {
+    cursor: pointer;
+    color: rgb(146, 146, 146);
+}
