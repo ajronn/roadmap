@@ -18,7 +18,9 @@ export const UserContext = createContext({
 });
 
 const UserProvider = (props) => {
+    const ref = firebase.database().ref('Users');
     const [currentUser, setCurrentUser] = useState(null);
+    const [users, setUsers] = useState([]);
     let unsubscribeFromAuth = null;
 
     useEffect(() => {
@@ -26,7 +28,19 @@ const UserProvider = (props) => {
             setCurrentUser(user)
             return () => auth.signOut();
         });
-    }, [])
+
+        const usersArray: User[] = [];
+        ref.on("value", (snap) => {
+            const snapshot = snap.val();
+            for (let id in snapshot) {
+                usersArray.push({
+                    id: snapshot[id].id,
+                    name: snapshot[id].displayName
+                })
+            }
+        })
+        setUsers(usersArray);
+    }, [currentUser])
 
     const validateUser = (array: User[], id: string) => {
         for (let i = 0; i < array.length; i++) {
@@ -40,22 +54,9 @@ const UserProvider = (props) => {
     }
 
     const login = () => signInWithGoogle().then((u) => {
-        const ref = firebase.database().ref('Users');
-        const users: User[] = [];
-        ref.on("value", (snap) => {
-            const snapshot = snap.val();
-            for (let id in snapshot) {
-                users.push({
-                    id: snapshot[id].id,
-                    name: snapshot[id].displayName
-                })
-            }
-        })
-
         if (validateUser(users, u.user.uid)) {
             addUser(ref, u.user.uid, u.user.displayName);
         }
-
     })
 
     const data = {

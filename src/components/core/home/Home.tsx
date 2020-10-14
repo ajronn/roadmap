@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserContext } from "../../../firebase/provider/UserProvider"
+import { Week } from "../calendar"
 import styles from "./home.css"
 
 interface User {
@@ -12,12 +13,7 @@ const Home = () => {
 
     return (
         <div className={styles.home}>
-            <div className={styles.title}>Welcome {user.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}</div>
-            {user.isLogged &&
-                <div>
-                    ID {user.id}<br />
-                    PHOTO <img src={user.photoURL} />
-                </div>}
+            <Week />
         </div>
     )
 
