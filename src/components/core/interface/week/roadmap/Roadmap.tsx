@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Day } from "../Week";
+import { Timeline } from "../../.."
 
 import styles from "./roadmap.css"
 
@@ -8,10 +10,10 @@ interface Props {
 }
 
 const Roadmap = ({ currentWeek }: Props) => {
+
     return (
         <div>
             <div className={styles.header}>
-                <span>h</span>
                 {currentWeek.map(e => {
                     return (
                         <span>
@@ -21,7 +23,9 @@ const Roadmap = ({ currentWeek }: Props) => {
                     )
                 })}
             </div>
-
+            <div className={styles.table}>
+                <Timeline />
+            </div>
         </div>
     )
 }

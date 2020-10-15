@@ -1,0 +1,16 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.wrapper > span {
+    text-align: center;
+    border: 1px solid black;
+    border-top: none;
+    border-left: none;
+    height: 40px;
+}
+
+.wrapper > span:first-child {
+    border-left: 1px solid black;
+}
