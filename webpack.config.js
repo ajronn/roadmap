@@ -9,7 +9,7 @@ module.exports = {
         publicPath: '/'
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx"],
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".png"],
     },
     module: {
         rules: [
@@ -36,6 +36,14 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: 'images/[name].[ext]'
+                }
+
             }
         ]
     },

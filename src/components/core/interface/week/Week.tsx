@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DAYS_OF_THE_WEEK } from "../utils"
 
+import { Roadmap } from "./roadmap"
+
 import { Calendar } from "../../../ui"
 
 import styles from "./week.css";
@@ -85,15 +87,7 @@ const Week = () => {
     return (
         <div className={styles.grid}>
             <Calendar onChange={(e) => setDate(e.target.value)} />
-            <div className={styles.table}>
-                <span>h</span>
-                {currentWeek.map((e, index) => {
-                    return <span key={index}>{e.dayInMonth}.{e.month}.{e.year}</span>
-                })}
-                {/* {Array.from(Array(192).keys()).map(e => {
-                    return <span key={e}>{e}</span>
-                })} */}
-            </div>
+            <Roadmap currentWeek={currentWeek} />
         </div>
     )
 }

@@ -2,6 +2,16 @@
     padding: 10px;
 }
 
+.welcome {
+    text-align: center;
+    padding-top: 30vh;
+}
+
+.welcome h1 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
 .title {
     font-size: 25px;
 }
