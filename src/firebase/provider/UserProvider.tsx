@@ -21,10 +21,9 @@ const UserProvider = (props) => {
     const ref = firebase.database().ref('Users');
     const [currentUser, setCurrentUser] = useState(null);
     const [users, setUsers] = useState([]);
-    let unsubscribeFromAuth = null;
 
     useEffect(() => {
-        unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+        auth.onAuthStateChanged((user) => {
             setCurrentUser(user)
             return () => auth.signOut();
         });

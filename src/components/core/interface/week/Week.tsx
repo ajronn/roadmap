@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { DAYS_OF_THE_WEEK } from "../utils"
 
-import { Calendar } from "../../../shared/calendar"
+import { Calendar } from "../../../ui"
 
 import styles from "./week.css";
 
@@ -14,7 +15,6 @@ export interface Day {
 const Week = () => {
     const [currentDay, setCurrentDay] = useState(new Date());
     const [currentWeek, setCurrentWeek] = useState([]);
-    const DAYS_OF_THE_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     useEffect(() => {
         const sunday: Date = findSunday(currentDay);
@@ -90,6 +90,9 @@ const Week = () => {
                 {currentWeek.map((e, index) => {
                     return <span key={index}>{e.dayInMonth}.{e.month}.{e.year}</span>
                 })}
+                {/* {Array.from(Array(192).keys()).map(e => {
+                    return <span key={e}>{e}</span>
+                })} */}
             </div>
         </div>
     )

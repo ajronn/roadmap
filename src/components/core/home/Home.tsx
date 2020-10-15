@@ -1,6 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { UserContext } from "../../../firebase/provider/UserProvider"
-import { Week } from "../calendar"
+
+import { Week } from "../interface"
+
 import styles from "./home.css"
 
 interface User {
@@ -13,7 +15,7 @@ const Home = () => {
 
     return (
         <div className={styles.home}>
-            <Week />
+            {user.isLogged && <Week />}
         </div>
     )
 
