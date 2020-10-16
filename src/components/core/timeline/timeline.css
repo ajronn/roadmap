@@ -5,12 +5,34 @@
 
 .wrapper > span {
     text-align: center;
-    border: 1px solid black;
     border-top: none;
     border-left: none;
     height: 40px;
+    display: grid;
+    align-items: center;
 }
 
-.wrapper > span:first-child {
-    border-left: 1px solid black;
+.wrapper:hover {
+    border-bottom: 1px solid black;
+}
+
+.start,
+.middle,
+.finish,
+.single {
+    background-color: rgb(44, 166, 182);
+    height: 40%;
+    width: 100%;
+}
+
+.start {
+    border-radius: 10px 0 0 10px;
+}
+
+.single {
+    border-radius: 10px;
+}
+
+.finish {
+    border-radius: 0 10px 10px 0;
 }

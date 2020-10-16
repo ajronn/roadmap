@@ -14,17 +14,33 @@ export const UserContext = createContext({
     email: "",
     name: "",
     photoURL: "",
-    isLogged: false
+    isLogged: false,
+    projects: []
 });
 
 const UserProvider = (props) => {
     const ref = firebase.database().ref('Users');
+    const projectsRef = firebase.database().ref('Projects');
     const [currentUser, setCurrentUser] = useState(null);
     const [users, setUsers] = useState([]);
+    const [projects, setProjects] = useState([]);
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             setCurrentUser(user)
+            if (user) {
+                const arr = [];
+                projectsRef.on("value", (snap) => {
+                    const snapshot = snap.val();
+                    for (let id in snapshot) {
+                        arr.push({
+                            id: snapshot[id].id,
+                            name: snapshot[id].name
+                        })
+                    }
+                })
+                setProjects(arr);
+            }
             return () => auth.signOut();
         });
 
@@ -65,7 +81,8 @@ const UserProvider = (props) => {
         email: currentUser ? currentUser.emial : "",
         name: currentUser ? currentUser.displayName : "",
         photoURL: currentUser ? currentUser.photoURL : "",
-        isLogged: currentUser ? true : false
+        isLogged: currentUser ? true : false,
+        projects: projects
     };
 
     return (

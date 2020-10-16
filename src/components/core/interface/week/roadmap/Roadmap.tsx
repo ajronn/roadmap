@@ -23,7 +23,8 @@ const Roadmap = ({ currentWeek }: Props) => {
                     )
                 })}
             </div>
-            <div className={styles.table}>
+            <div>
+                <Timeline />
                 <Timeline />
             </div>
         </div>
