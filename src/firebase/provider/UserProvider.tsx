@@ -1,6 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react'
 import { signInWithGoogle, auth } from '../../firebase/firebase.utils';
 import firebase from "../../firebase/firebase.utils"
+import history from "../../components/main/history"
 
 interface User {
     id: string,
@@ -10,6 +11,8 @@ interface User {
 export const UserContext = createContext({
     login: () => { },
     logout: () => { },
+    addProject: (name: string) => { },
+    deleteProject: (id: string) => { },
     id: "",
     email: "",
     name: "",
@@ -19,6 +22,7 @@ export const UserContext = createContext({
 });
 
 const UserProvider = (props) => {
+    const [isLogged, setIsLogged] = useState(false);
     const ref = firebase.database().ref('Users');
     const projectsRef = firebase.database().ref('Projects');
     const [currentUser, setCurrentUser] = useState(null);
@@ -27,21 +31,12 @@ const UserProvider = (props) => {
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
-            setCurrentUser(user)
             if (user) {
-                const arr = [];
-                projectsRef.on("value", (snap) => {
-                    const snapshot = snap.val();
-                    for (let id in snapshot) {
-                        arr.push({
-                            id: snapshot[id].id,
-                            name: snapshot[id].name
-                        })
-                    }
-                })
-                setProjects(arr);
+                setIsLogged(true);
+                setCurrentUser(user)
+                loadProjects();
             }
-            return () => auth.signOut();
+            return () => logoutUser();
         });
 
         const usersArray: User[] = [];
@@ -55,7 +50,24 @@ const UserProvider = (props) => {
             }
         })
         setUsers(usersArray);
-    }, [currentUser])
+    }, [isLogged, currentUser])
+
+    const loadProjects = () => {
+        const arr = [];
+        projectsRef.on("value", (snap) => {
+            const snapshot = snap.val();
+            for (let id in snapshot) {
+                if (snapshot[id].userid === currentUser.uid) {
+                    arr.push({
+                        id: snapshot[id].id,
+                        name: snapshot[id].name,
+                        userid: snapshot[id].userid
+                    })
+                }
+            }
+        })
+        setProjects(arr);
+    }
 
     const validateUser = (array: User[], id: string) => {
         for (let i = 0; i < array.length; i++) {
@@ -72,16 +84,41 @@ const UserProvider = (props) => {
         if (validateUser(users, u.user.uid)) {
             addUser(ref, u.user.uid, u.user.displayName);
         }
+        setIsLogged(true);
+        history.push("/projects");
     })
+
+    const logoutUser = () => {
+        auth.signOut();
+        setIsLogged(false);
+        history.push("/");
+    }
+
+    const addProject = (name: string) => {
+        let id = -1;
+        projects.map(e => {
+            if (e.id > id) id = e.id;
+        })
+        projectsRef.push({ id: id + 1, name: name, userid: currentUser.uid });
+        loadProjects();
+    }
+
+    const deleteProject = (id: string) => {
+        console.log(id);
+
+        loadProjects();
+    }
 
     const data = {
         login: login,
-        logout: () => auth.signOut(),
+        logout: logoutUser,
+        addProject: addProject,
+        deleteProject: deleteProject,
         id: currentUser ? currentUser.uid : "",
         email: currentUser ? currentUser.emial : "",
         name: currentUser ? currentUser.displayName : "",
         photoURL: currentUser ? currentUser.photoURL : "",
-        isLogged: currentUser ? true : false,
+        isLogged: isLogged,
         projects: projects
     };
 

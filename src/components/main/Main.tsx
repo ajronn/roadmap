@@ -1,9 +1,10 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import UserProvider from "../../firebase/provider/UserProvider"
+import history from "./history"
 
 import { Navbar } from "../shared"
-import { Home } from "../core"
+import { Home, Projects } from "../core"
 
 import styles from "./main.css"
 
@@ -14,9 +15,10 @@ const Main = () => {
             <div className={styles.main}>
                 <Navbar />
                 <div className={styles.content}>
-                    <Router>
+                    <Router history={history}>
                         <Switch>
-                            <Route path="/" exact><Home /></Route>
+                            <Route path="/projects"><Projects /></Route>
+                            <Route path="/"><Home /></Route>
                         </Switch>
                     </Router>
                 </div>

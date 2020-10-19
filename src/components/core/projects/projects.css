@@ -1,0 +1,26 @@
+.projects {
+    padding: 10px;
+}
+
+.newproject {
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.tile,
+.newproject {
+    float: left;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.close {
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    top: 0px;
+    right: 7px;
+    font-size: 30px;
+}
