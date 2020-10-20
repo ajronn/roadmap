@@ -14,6 +14,7 @@
 
 .wrapper {
     position: relative;
+    border-bottom: 5px solid black;
 }
 
 .close {

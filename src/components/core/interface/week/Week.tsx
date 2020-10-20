@@ -14,7 +14,7 @@ export interface Day {
     dayOfWeek: string,
 }
 
-const Week = ({ id }) => {
+const Week = () => {
     const [currentDay, setCurrentDay] = useState(new Date());
     const [currentWeek, setCurrentWeek] = useState([]);
 

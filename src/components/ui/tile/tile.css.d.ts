@@ -3,6 +3,7 @@
 interface CssExports {
   'close': string;
   'tile': string;
+  'tooltip': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

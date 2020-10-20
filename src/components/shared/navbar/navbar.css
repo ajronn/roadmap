@@ -13,6 +13,7 @@
     background-color: rgb(16, 87, 71);
     margin-bottom: 5px;
     border: none;
+    font-size: 10px;
 }
 
 .butt:active {
@@ -51,6 +52,7 @@
     color: rgb(13, 168, 132);
     background-color: rgb(16, 87, 71);
     margin-bottom: 15px;
+    cursor: pointer;
 }
 
 .photo {

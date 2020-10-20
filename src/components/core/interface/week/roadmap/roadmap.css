@@ -16,3 +16,23 @@
 .header > span:first-child {
     border-left: 1px solid black;
 }
+
+.butt {
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px solid black;
+    font-size: 20px;
+}
+
+.butt:hover {
+    background-color: rgba(16, 87, 71);
+    background-color: rgba(16, 87, 71, 0.5);
+}
+
+.butt:active {
+    background-color: rgba(16, 87, 71);
+    background-color: rgba(16, 87, 71, 0.8);
+}

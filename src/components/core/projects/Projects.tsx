@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react"
-import { UserContext } from "../../../firebase/provider/UserProvider"
+import React, { useContext, useState, useEffect } from "react"
+import { UserContext, Protected } from "../../../firebase"
 
-import { Form } from "./Form"
+import { Form } from "./form"
+import { Confirm } from "./confirm"
 
 import { Tile, Modal } from "../../ui"
 
@@ -9,33 +10,58 @@ import styles from "./projects.css"
 
 const Projects = () => {
     const ctx = useContext(UserContext);
-    const [isOpen, setIsOpen] = useState(false);
+    const [projects, setProjects] = useState(ctx.projects);
+    const [isFormOpen, setIsFormOpen] = useState(false);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
-    const openModal = () => setIsOpen(true);
-    const closeModal = () => setIsOpen(false);
+    useEffect(() => {
+        console.log(ctx.projects.length)
+        setProjects(ctx.projects);
+    }, [ctx.isLogged])
 
-    const addProjectHandler = (name: string) => {
+    const openModal = () => setIsFormOpen(true);
+    const closeModal = () => setIsFormOpen(false);
+
+    const openConfirm = () => setIsConfirmOpen(true);
+    const closeConfirm = () => setIsConfirmOpen(false);
+
+    const addProjectHandler = (name: string, desc: string) => {
         if (name !== "") {
-            setIsOpen(false);
-            ctx.addProject(name);
+            setIsFormOpen(false);
+            ctx.addProject(name, desc);
         }
     }
 
     const deleteProjectHandler = (id) => {
         ctx.deleteProject(id);
+        closeConfirm();
     }
 
     return (
         <div className={styles.projects}>
-            {ctx.isLogged &&
+            <Protected>
                 <div>
-                    {ctx.projects.map(e => {
-                        return <Tile name={e.name} close={() => deleteProjectHandler(e.id)} className={styles.tile} />
+                    {projects.map((e, index) => {
+                        return (
+                            <div key={index}>
+                                <Tile name={e.name}
+                                    description={e.desc}
+                                    close={openConfirm}
+                                    className={styles.tile}
+                                    onClick={() => ctx.setProject(e.id)} />
+                                <Modal display={isConfirmOpen}>
+                                    <div className={styles.wrapper} >
+                                        <div className={styles.close} onClick={closeConfirm} >x</div>
+                                        <Confirm no={closeConfirm} yes={deleteProjectHandler} projectid={e.firebaseid} />
+                                    </div>
+                                </Modal>
+                            </div>
+                        )
                     })}
                     <Tile name="+" className={styles.newproject} onClick={openModal} />
                 </div>
-            }
-            <Modal display={isOpen}>
+            </Protected>
+            <Modal display={isFormOpen}>
                 <div className={styles.wrapper} >
                     <div className={styles.close} onClick={closeModal} >x</div>
                     <Form submit={addProjectHandler} />

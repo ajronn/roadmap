@@ -8,19 +8,16 @@
     padding-top: 50px;
     background-color: rgb(16, 87, 71);
     position: relative;
+    border-bottom: 5px solid black;
 }
 
-label,
-input {
-    display: block;
-}
-
-input {
-    margin: 10px;
-    margin-bottom: 0;
-    border-radius: 5px;
-    border: none;
-    height: 20px;
+.close {
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    top: 0px;
+    right: 7px;
+    font-size: 30px;
 }
 
 .button {
@@ -35,8 +32,4 @@ input {
 
 .button:active {
     background-color: rgb(16, 87, 71);
-}
-
-form > fieldset {
-    margin-bottom: 10px;
 }

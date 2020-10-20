@@ -1,29 +1,30 @@
 import React from "react"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { Router, Route, Switch } from "react-router";
 import UserProvider from "../../firebase/provider/UserProvider"
 import history from "./history"
 
 import { Navbar } from "../shared"
-import { Home, Projects } from "../core"
+import { Home, Projects, Week } from "../core"
 
 import styles from "./main.css"
 
 const Main = () => {
 
     return (
-        <UserProvider>
-            <div className={styles.main}>
-                <Navbar />
-                <div className={styles.content}>
-                    <Router history={history}>
+        <Router history={history}>
+            <UserProvider>
+                <div className={styles.main}>
+                    <Navbar />
+                    <div className={styles.content}>
                         <Switch>
-                            <Route path="/projects"><Projects /></Route>
-                            <Route path="/"><Home /></Route>
+                            <Route path="/projects" component={Projects} />
+                            <Route path="/project" component={Week} />
+                            <Route path="/" component={Home} />
                         </Switch>
-                    </Router>
+                    </div>
                 </div>
-            </div>
-        </UserProvider>
+            </UserProvider>
+        </Router >
     )
 }
 

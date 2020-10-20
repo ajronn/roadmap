@@ -24,3 +24,18 @@
     right: 4px;
     font-size: 20px;
 }
+
+.tooltip {
+    position: absolute;
+    border: 3px solid rgb(16, 87, 71);
+    bottom: -40px;
+    padding: 5px;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.tile:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
