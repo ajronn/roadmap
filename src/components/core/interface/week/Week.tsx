@@ -3,7 +3,7 @@ import { DAYS_OF_THE_WEEK } from "../utils"
 
 import { Roadmap } from "./roadmap"
 
-import { Calendar } from "../../../ui"
+import { Calendar } from "ui"
 
 import styles from "./week.css";
 
@@ -14,7 +14,7 @@ export interface Day {
     dayOfWeek: string,
 }
 
-const Week = () => {
+const Week = (props) => {
     const [currentDay, setCurrentDay] = useState(new Date());
     const [currentWeek, setCurrentWeek] = useState([]);
 
@@ -24,8 +24,8 @@ const Week = () => {
         for (let i = 0; i < 7; i++) {
             const d = findDay(sunday, i);
             arr.push({
-                dayInMonth: d.getDate(),
-                month: d.getMonth(),
+                dayInMonth: (d.getDate() + "").length === 1 ? ("0" + d.getDate()) : (d.getDate() + ""),
+                month: (d.getMonth() + "").length === 1 ? ("0" + d.getMonth()) : (d.getMonth() + ""),
                 year: d.getFullYear(),
                 dayOfWeek: DAYS_OF_THE_WEEK[d.getDay()]
             });
@@ -87,7 +87,7 @@ const Week = () => {
     return (
         <div className={styles.grid}>
             <Calendar onChange={(e) => setDate(e.target.value)} />
-            <Roadmap currentWeek={currentWeek} />
+            <Roadmap currentWeek={currentWeek} id={props.match.params.id} />
         </div>
     )
 }

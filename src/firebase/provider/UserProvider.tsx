@@ -1,7 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react'
-import { signInWithGoogle, auth } from '../../firebase/firebase.utils';
-import firebase from "../../firebase/firebase.utils"
-import history from "../../components/main/history"
+import { signInWithGoogle, auth } from 'firebase/firebase.utils';
+import firebase from "firebase/firebase.utils"
+import history from "main/history"
 
 interface User {
     id: string,
@@ -13,16 +13,13 @@ export const UserContext = createContext({
     logout: () => { },
     addProject: (name: string, desc: string) => { },
     deleteProject: (id: string) => { },
-    setProject: (id: string) => { },
     addTimeline: (projectid: string, dateStart: string, dateEnd: string, userId: string, time: string, content: string) => { },
-    timelines: [],
     id: "",
     email: "",
     name: "",
     photoURL: "",
     isLogged: false,
     projects: [],
-    currentProjectId: ""
 });
 
 const UserProvider = (props) => {
@@ -33,13 +30,10 @@ const UserProvider = (props) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [users, setUsers] = useState([]);
     const [projects, setProjects] = useState([]);
-    const [currentProjectId, setCurrentProjectId] = useState("");
-    const [timelines, setTimelines] = useState([]);
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             if (user !== null) {
-                setIsLogged(true);
                 setCurrentUser(user)
                 loadProjects();
             }
@@ -118,12 +112,6 @@ const UserProvider = (props) => {
         loadProjects();
     }
 
-    const setProject = (id: string) => {
-        setCurrentProjectId(id);
-        getTimelines(id);
-        history.push("/project");
-    }
-
     const addTimeline = (projectid: string, dateStart: string, dateEnd: string, userId: string, time: string, content: string) => {
         timelinesRef.push({
             projectId: projectid,
@@ -135,27 +123,11 @@ const UserProvider = (props) => {
         });
     }
 
-    const getTimelines = (projectid: string) => {
-        if (currentUser === null) {
-            history.push("/")
-            return;
-        }
-        const arr = [];
-        timelinesRef.on("value", (snap) => {
-            const snapshot = snap.val();
-            for (let id in snapshot) {
-                arr.push(snapshot[id]);
-            }
-        })
-        setTimelines(arr);
-    }
-
     const data = {
         login: login,
         logout: logoutUser,
         addProject: addProject,
         deleteProject: deleteProject,
-        setProject: setProject,
         addTimeline: addTimeline,
         id: currentUser ? currentUser.uid : "",
         email: currentUser ? currentUser.emial : "",
@@ -163,8 +135,6 @@ const UserProvider = (props) => {
         photoURL: currentUser ? currentUser.photoURL : "",
         isLogged: isLogged,
         projects: projects,
-        currentProjectId: currentProjectId,
-        timelines: timelines
     };
 
     return (

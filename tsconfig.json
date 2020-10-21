@@ -5,7 +5,28 @@
         "jsx": "react",
         "outDir": "dist",
         "sourceMap": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "baseUrl": ".",
+        "paths": {
+            "main/*": [
+                "src/components/main/*"
+            ],
+            "core": [
+                "src/components/core"
+            ],
+            "shared": [
+                "src/components/shared"
+            ],
+            "ui": [
+                "src/components/ui"
+            ],
+            "firebase/*": [
+                "src/firebase/*"
+            ],
+            "images/*": [
+                "src/components/ui/images/*"
+            ]
+        }
     },
     "include": [
         "src"

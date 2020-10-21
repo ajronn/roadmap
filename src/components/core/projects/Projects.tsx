@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from "react"
-import { UserContext, Protected } from "../../../firebase"
+import { Protected } from "firebase/guard"
+import { UserContext } from "firebase/provider"
+import history from "main/history"
 
 import { Form } from "./form"
 import { Confirm } from "./confirm"
 
-import { Tile, Modal } from "../../ui"
+import { Tile, Modal } from "ui"
 
 import styles from "./projects.css"
 
@@ -48,7 +50,7 @@ const Projects = () => {
                                     description={e.desc}
                                     close={openConfirm}
                                     className={styles.tile}
-                                    onClick={() => ctx.setProject(e.id)} />
+                                    onClick={() => history.push("/project/" + e.id)} />
                                 <Modal display={isConfirmOpen}>
                                     <div className={styles.wrapper} >
                                         <div className={styles.close} onClick={closeConfirm} >x</div>

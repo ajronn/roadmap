@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Logo from "../../ui/images/logo.png"
+import Logo from "images/logo.png"
 
 import styles from "./home.css"
 

@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react"
-import { UserContext, Unprotected, Protected } from "../../../firebase"
-import history from "../../main/history"
+import { Unprotected, Protected } from "firebase/guard"
+import { UserContext } from "firebase/provider"
+import history from "main/history"
 
-import { Button } from "../../ui"
+import { Button } from "ui"
 
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';

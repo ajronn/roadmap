@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import { Button } from "../../../ui"
+import { Button } from "ui"
 
 import styles from "./form.css"
 
